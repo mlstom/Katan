@@ -19,7 +19,7 @@ function App() {
       <h1>Vite + React</h1>
       
       <p className="read-the-docs">
-        Click on the milos to learn more
+        BLA BLA BAL
       </p>
     </>
   )
