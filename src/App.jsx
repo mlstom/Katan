@@ -1,27 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
+import { Stage, Layer, Rect, Text } from 'react-konva';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = React.useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      
-      <p className="read-the-docs">
-        BLA BLA BAL
-      </p>
-    </>
+    
+    <><Stage width={400} height={400} >
+    <Layer>
+      <Text text="Hello Canvas!" fontSize={20} x={50} y={50} />
+      <Rect  draggable = {true} x={70} y={100} width={400} height={400} fill="lightgreen" />
+    </Layer>
+  </Stage></>
   )
 }
 
