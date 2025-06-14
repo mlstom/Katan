@@ -1,13 +1,16 @@
 import React from 'react'
-import { Stage, Layer, Rect, Text } from 'react-konva';
+import { Stage, Layer, Rect, Text } from 'react-konva'
 import './App.css'
 import { Polje } from './classes/Polje';
+import { Tile } from './classes/Tile'
+
+
 
 function App() {
-  const mapaRef = React.useRef(null);
+  const [count, setCount] = React.useState(0)
+  const rec = React.useRef(null)
   const polje = new Polje(10, 10, 10, 10, 10, 10);
-
-
+  const test = new Tile(100, 100, "B",5,false, "{0,0,0,0,0,0}")
   return (
 
     <><Stage width={600} height={600} >
@@ -16,6 +19,7 @@ function App() {
       </Layer>
       <Layer >
         {polje.render()}
+        {test.render()}
       </Layer>
 
       <Layer>
