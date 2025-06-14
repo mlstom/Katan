@@ -1,0 +1,28 @@
+tile:
+-resurs = {D C Z K O P}
+-broj = {2 3 3 4 4 5 5 6 6 8 8 9 9 10 10 11 11 12}
+-bool lopov = {true/false}
+-polja[6] = *polje
+
+polje:
+-vlasnik = *igrac
+-int grad/kucica = {0 1 2}
+-port{0 1 2 3 4 5 6}
+-putevi[2/3]
+
+put:
+-vlasnik
+-polje[2] = *polje
+
+igrac:
+-polja[]
+-putevi[]
+-resursi[]
+-karte[]
+-poeni
+main:
+
+-igraci[]
+-tilelist[]
+-locationlist[]
+-roadlist[]

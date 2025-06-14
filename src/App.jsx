@@ -7,7 +7,7 @@ function App() {
 
   return (
     
-    <><Stage width={400} height={400} >
+    <><Stage width={900} height={900} >
     <Layer>
       <Text text="Hello Canvas!" fontSize={20} x={50} y={50} />
       <Rect  draggable = {true} x={70} y={100} width={400} height={400} fill="lightgreen" />
