@@ -41,7 +41,7 @@ function App() {
 
     <div className="canvas-container" ><Stage width={600} height={600} onWheel={handleWheel}>
       <Layer>
-        <Rect width={600} height={600} fill="#3674B5" draggable={false} />
+        <Rect width={600} height={600} fill="#5b6ee1" draggable={false} />
       </Layer>
 
       <Layer ref={layerRef} draggable >
