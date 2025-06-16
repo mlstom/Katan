@@ -36,7 +36,6 @@ function App() {
   };
   
   const mapa = new Mapa(1);
-
   return (
 
     <div className="canvas-container" ><Stage width={600} height={600} onWheel={handleWheel}>

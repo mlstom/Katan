@@ -12,20 +12,28 @@ export class Mapa {
         
         let nizTile = []
         let nizPolja = [];
-
+        let nizPortova = [];
         switch (i) {
             case 1:
                 
-                let port0 = new Port("luka3u10", 1)
-                let port1 = new Port("luka3u11", 1)
-                let port2 = new Port("luka3u12", 1)
-                let port3 = new Port("luka3u13", 1)
-                let port4 = new Port("lukadrvo", 2)
-                let port5 = new Port("lukaovca", 3)
-                let port6 = new Port("lukazito", 4)
-                let port7 = new Port("lukakamen", 5)
-                let port8 = new Port("lukacigla", 6)
-
+                let port0 = new Port("luka3u10",75, 60, 1)
+                nizPortova.push(port0)
+                let port1 = new Port("luka3u11",175, 60, 1)
+                nizPortova.push(port1)
+                let port2 = new Port("luka3u12",250, 100, 1)
+                nizPortova.push(port2)
+                let port3 = new Port("luka3u13",25, 140 ,1)
+                nizPortova.push(port3)
+                let port4 = new Port("lukadrvo",300, 180, 2)
+                nizPortova.push(port4)
+                let port5 = new Port("lukaovca",25, 220, 3)
+                nizPortova.push(port5)
+                let port6 = new Port("lukazito",250, 260, 4)
+                nizPortova.push(port6)
+                let port7 = new Port("lukakamen",175, 300 ,5)
+                nizPortova.push(port7)
+                let port8 = new Port("lukacigla",75, 300, 6)
+                nizPortova.push(port8)
                 //1- ima 3 prema 1 port 2-ima drvo port 3-ovca port 4-zito port 5-kamen port 6-cigla port
                 let x = 0
                 let y = 0
@@ -140,13 +148,14 @@ export class Mapa {
 
         this.nizPolja = nizPolja
         this.nizTiles = nizTile
-       
+       this.nizPortova = nizPortova
     }
 
     draw() {
 
         const polja = this.nizTiles.map(tile => tile.render())
+        const portovi = this.nizPortova.map(port => port.render())
         const tiles = this.nizPolja.map(polje => polje.render())
-        return [...tiles, ...polja];
+        return [...tiles, ...polja, ...portovi];
     }
 }
