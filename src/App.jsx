@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRef, useState } from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva'
 import './App.css'
 import { Polje } from './classes/Polje';
@@ -8,8 +9,34 @@ import { Port } from './classes/Port';
 
 
 function App() {
-  const [count, setCount] = React.useState(0)
-  const rec = React.useRef(null)
+ const layerRef = useRef(null);
+
+  const handleWheel = (e) => {
+    e.evt.preventDefault();
+
+    const scaleBy = 1.05;
+    const layer = layerRef.current;
+    const oldScale = layer.scaleX();
+    const pointer = layer.getStage().getPointerPosition();
+
+    const mousePointTo = {
+      x: (pointer.x - layer.x()) / oldScale,
+      y: (pointer.y - layer.y()) / oldScale,
+    };
+
+    const direction = e.evt.deltaY > 0 ? 1 : -1;
+    const newScale = direction > 0 ? oldScale / scaleBy : oldScale * scaleBy;
+
+    layer.scale({ x: newScale, y: newScale });
+
+    const newPos = {
+      x: pointer.x - mousePointTo.x * newScale,
+      y: pointer.y - mousePointTo.y * newScale,
+    };
+
+    layer.position(newPos);
+    layer.batchDraw();
+  };
   
   let port0 = new Port("luka3u10",1)
   let port1 = new Port("luka3u11",1)
@@ -131,18 +158,18 @@ function App() {
   
   return (
 
-    <><Stage width={600} height={600} >
+    <div className="canvas-container" ><Stage width={600} height={600} onWheel={handleWheel}>
       <Layer>
-        <Rect width={600} height={600} fill="#3674B5" />
+        <Rect width={600} height={600} fill="#3674B5" draggable = {false}/>
       </Layer>
-      <Layer >
-        
+      <Layer ref={layerRef} draggable >
+    
         {nizTile.map(tile => tile.render())}
         {nizPolja.map(polje=>polje.render())}
       </Layer>
 
       
-    </Stage></>
+    </Stage></div>
   )
 }
 
