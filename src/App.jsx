@@ -3,10 +3,11 @@ import { useRef, useState } from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva'
 import './App.css'
 import { Mapa } from './classes/Mapa';
+import ImageComponent from './components/ImageComponent';
 
 
 function App() {
- const layerRef = useRef(null);
+  const layerRef = useRef(null);
 
   const handleWheel = (e) => {
     e.evt.preventDefault();
@@ -34,21 +35,29 @@ function App() {
     layer.position(newPos);
     layer.batchDraw();
   };
-  
+
   const mapa = new Mapa(1);
 
   return (
 
     <div className="canvas-container" ><Stage width={600} height={600} onWheel={handleWheel}>
       <Layer>
-        <Rect width={600} height={600} fill="#3674B5" draggable = {false}/>
-      </Layer>
-      <Layer ref={layerRef} draggable >
-        {mapa.draw()}
-       
+        <Rect width={600} height={600} fill="#3674B5" draggable={false} />
       </Layer>
 
-      
+      <Layer ref={layerRef} draggable >
+        <ImageComponent
+          src={`src/assets/tlo5.png`} // lokalni path, mora da bude validan
+          x={150}
+          y={180}
+          width={300}
+          height={260}
+        />
+        {mapa.draw()}
+
+      </Layer>
+
+
     </Stage></div>
   )
 }
