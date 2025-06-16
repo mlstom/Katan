@@ -1,7 +1,9 @@
-import { RegularPolygon, Text } from 'react-konva';
+import { RegularPolygon,Group} from 'react-konva';
+import ImageComponent from '../components/ImageComponent';
 
 export class Tile {
-  constructor(x, y, resource, number, lopov, polja) {
+  constructor(id, x, y, resource, number, lopov, polja) {
+    this.id = id
     this.x = x
     this.y = y
     this.resource = resource
@@ -12,22 +14,26 @@ export class Tile {
 
   render() {
     return (
-      <>
-        
+      <Group
+        key={this.id}
+      >
         <RegularPolygon
+
           x={this.x}
           y={this.y}
           width={50}
           height={50}
           fill={"red"}
           sides={6}
-          draggable
         />
-        <Text 
-        text={12}
-         x={this.x-2}
-          y={this.y-4} />
-      </>);
+        <ImageComponent
+          src={`src/assets/broj${this.number}.png`} // lokalni path, mora da bude validan
+          x={this.x}
+          y={this.y}
+          width={20}
+          height={20}
+        />
+      </Group>);
   }
 
 }
