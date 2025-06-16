@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva'
 import './App.css'
 import { Mapa } from './classes/Mapa';
-import ImageComponent from './components/ImageComponent';
+
 
 
 function App() {
@@ -45,13 +45,7 @@ function App() {
       </Layer>
 
       <Layer ref={layerRef} draggable >
-        <ImageComponent
-          src={`src/assets/tlo5.png`} // lokalni path, mora da bude validan
-          x={150}
-          y={180}
-          width={300}
-          height={260}
-        />
+       
         {mapa.draw()}
 
       </Layer>

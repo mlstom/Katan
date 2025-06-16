@@ -1,7 +1,7 @@
 import { Polje } from './Polje';
 import { Tile } from './Tile'
 import { Port } from './Port';
-
+import ImageComponent from '../components/ImageComponent';
 
 export class Mapa {
     constructor(i) {
@@ -156,6 +156,12 @@ export class Mapa {
         const polja = this.nizTiles.map(tile => tile.render())
         const portovi = this.nizPortova.map(port => port.render())
         const tiles = this.nizPolja.map(polje => polje.render())
-        return [ ...polja, ...portovi,...tiles];
+        return [  <ImageComponent
+                  src={`src/assets/tlo5.png`} // lokalni path, mora da bude validan
+                  x={150}
+                  y={180}
+                  width={300}
+                  height={260}
+                />,...polja, ...portovi,...tiles];
     }
 }
