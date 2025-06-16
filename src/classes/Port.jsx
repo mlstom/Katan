@@ -1,4 +1,4 @@
-import { Circle } from "react-konva";
+import ImageComponent from '../components/ImageComponent';
 export class Port{
     constructor(id,x,y,luka){
         this.id = id
@@ -14,15 +14,13 @@ export class Port{
 
      render() {
         return (
-          <Circle
-            key={this.id}
-            x={this.x}
-            y={this.y}
-            radius={7}
-            fill={"rgb(250, 218, 122, 0.7)"} // bez ispune
-            stroke={"black"}     // crna ivica
-            strokeWidth={1}
-          />
+          <ImageComponent
+          src={`src/assets/luka${this.luka}.png`} // lokalni path, mora da bude validan
+          x={this.x}
+          y={this.y}
+          width={30}
+          height={30}
+        />
         )
       }
 
