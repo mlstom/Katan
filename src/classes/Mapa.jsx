@@ -156,6 +156,6 @@ export class Mapa {
         const polja = this.nizTiles.map(tile => tile.render())
         const portovi = this.nizPortova.map(port => port.render())
         const tiles = this.nizPolja.map(polje => polje.render())
-        return [...tiles, ...polja, ...portovi];
+        return [ ...polja, ...portovi,...tiles];
     }
 }
