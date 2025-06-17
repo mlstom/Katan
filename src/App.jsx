@@ -39,9 +39,10 @@ function App() {
   const mapa = new Mapa(1);
   return (
 
-    <div className="canvas-container" ><Stage width={600} height={600} onWheel={handleWheel}>
-      <Layer>
-        <Rect width={600} height={600} fill="#5b6ee1" draggable={false} />
+    <div className="canvas-container" >
+      <Stage width={550} height={550} onWheel={handleWheel} className="more">
+      <Layer >
+        <Rect width={550} height={550} fill="#5b6ee1" draggable={false} />
       </Layer>
 
       <Layer ref={layerRef} draggable >
@@ -49,9 +50,8 @@ function App() {
         {mapa.draw()}
 
       </Layer>
-
-
-    </Stage></div>
+    </Stage>
+    </div>
   )
 }
 

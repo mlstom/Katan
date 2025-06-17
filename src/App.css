@@ -2,7 +2,17 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+
   justify-content: center;
   align-items: center;
-  background: #f0f0f0; /* optional */
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+  background-image: url("./assets/backg.jpg");
+}
+
+.more{
+    border-width: 15px; 
+  border-style: solid;
+  border-image: url("./assets/border.jpg") 20% round;
 }
