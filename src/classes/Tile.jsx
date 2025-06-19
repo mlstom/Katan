@@ -10,24 +10,26 @@ export class Tile {
     this.number = number
     this.lopov = lopov
     this.polja = polja 
-    if(resource == "drvo"){
+    switch(this.resource){
+    case "drvo":
       this.rektBoja = "#2D4F2B"
-    }
-    if(resource == "pustinja"){
+      break;
+    case "pustinja":
       this.rektBoja ="#F5F0CD"
-    }
-    if(resource == "ovca"){
+      break;
+    case "ovca":
       this.rektBoja = "#B6F500"
-    }
-    if(resource == "cigla"){
+      break;
+    case "cigla":
       this.rektBoja = "#FFAAAA"
-    }
-    if(resource=="kamen"){
+      break;
+    case "kamen":
       this.rektBoja = "#948979"
-    }
-    if(resource=="zito"){
-      this.rektBoja = "#FED16A"
-    }
+      break;
+    case "zito":
+      this.rektBoja = "#ffd503"
+      break;
+  }
   }
 
   render() {
