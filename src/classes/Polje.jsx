@@ -1,4 +1,4 @@
-import { Circle } from "react-konva";
+import { Circle, Group } from "react-konva";
 export class Polje {
   constructor(id,x, y, vlasnik, kuca, port, putevi) {
     this.id = id
@@ -8,20 +8,31 @@ export class Polje {
     this.kuca = kuca;
     this.port = port;
     this.putevi = putevi;
-
+    this.povezani =[]
   };
 
-  render() {
+  addPovezani(sused){
+    this.povezani.push(sused)
+  }
+  setKuca(kuca){
+    this.kuca = kuca
+  }
+  setVlasnik(vlasnik){
+    this.vlasnik = vlasnik
+  }
+
+  render(onClick) {
+    console.log(this.id)
     return (
       <Circle
         key={this.id}
         x={this.x}
         y={this.y}
-        radius={4}
-        fill={"rgb(250, 218, 122, 0.7)"} // bez ispune
-        stroke={"black"}     // crna ivica
-        strokeWidth={1}
+        radius={5}
+        fill="#eee"
+        stroke="black"
+        onClick={() => onClick(this)}
       />
-    )
+    );
   }
 }

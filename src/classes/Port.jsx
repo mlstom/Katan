@@ -20,6 +20,7 @@ export class Port{
           y={this.y}
           width={30}
           height={30}
+          key={this.id}
         />
         )
       }
