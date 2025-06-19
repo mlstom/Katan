@@ -178,8 +178,9 @@ function App() {
         </Layer>
 
         <Layer ref={layerRef} draggable x={160} y={100}>
-          {game.draw(handlePoljeClick)}
-          {overlayLines}
+        
+          {game.draw(handlePoljeClick,overlayLines)}
+          
         </Layer>
       </Stage>
       

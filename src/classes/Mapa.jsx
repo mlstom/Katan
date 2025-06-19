@@ -157,7 +157,7 @@ export class Mapa {
         this.nizPortova = nizPortova
     }
 
-    draw(igraci, onPoljeClick) {
+    draw(igraci,overlayLines, onPoljeClick) {
 
         const tiles = this.nizTiles.map(tile => tile.render())
         const portovi = this.nizPortova.map(port => port.render())
@@ -196,6 +196,7 @@ export class Mapa {
             ...tiles,
             
             ...portovi,
+            overlayLines,
             ...putevi,
             ...polja,
             ...kuce

@@ -32,9 +32,9 @@ export class Game {
         // dodaj put (možda niz puteva u igraču?)
         this.trenutniIgrac().dodajPut(izPolja, uPolje);
     }
-    draw(onPoljeClick) {
+    draw(onPoljeClick,overlayLines) {
         // prosledi igračima i callback na mapu
-        return this.mapa.draw(this.igraci, (polje) => {
+        return this.mapa.draw(this.igraci,overlayLines,(polje) => {
           // klik na polje
           if (polje) onPoljeClick(polje);
           this.izaberiPolje(polje);
