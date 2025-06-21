@@ -4,7 +4,8 @@ export class Igrac{
         this.boja = boja;
         this.putevi = []; 
         this.kucice = [];
-        this.gradovi=[] // niz polja gde ima kuće
+        this.gradovi=[] 
+        this.devKarte=[]
       }
     
       dodajPut(polje1, polje2) {

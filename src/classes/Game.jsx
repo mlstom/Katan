@@ -1,5 +1,6 @@
 import { Mapa } from './Mapa';
 import { Igrac } from './Igrac';
+import ImageComponent from '../components/ImageComponent';
 
 export class Game {
     constructor() {
@@ -8,11 +9,13 @@ export class Game {
         this.aktivniIgrac = 0;
         this.izabranoPolje1 = null;
         this.izabranoPolje2 = null;
+        this.devKarte = []
+        this.devIndex = 0
     }
     izaberiPolje(polje) {
         this.izabranoPolje = polje;
     }
-    dodajIgraca(novi){
+    dodajIgraca(novi) {
         this.igraci.push(novi)
     }
     trenutniIgrac() {
@@ -23,25 +26,58 @@ export class Game {
         polje.kuca = 1;
         this.trenutniIgrac().dodajKucicu(polje);
     }
-    
+    brojDevKarataKojiNisuIzvucene() {
+        return this.devKarte.length - this.devIndex
+    }
+
     zavrsiPotez() {
         this.aktivniIgrac = (this.aktivniIgrac + 1) % this.igraci.length;
         this.izabranoPolje = null;
     }
     postaviPut(izPolja, uPolje) {
         if (!izPolja || !uPolje) return;
-        // logika: ako su susedna i ako igrač sme tu da stavi put
-        // dodaj put (možda niz puteva u igraču?)
         this.trenutniIgrac().dodajPut(izPolja, uPolje);
     }
-    draw(onPoljeClick,overlayLines) {
-        // prosledi igračima i callback na mapu
-        return this.mapa.draw(this.igraci,overlayLines,(polje) => {
-          // klik na polje
-          if (polje) onPoljeClick(polje);
+    dodajDevKartu(devKarta) {
+        this.devKarte.push(devKarta)
+    }
+    sfuleDevKarte() {
+
+        for (let i = this.devKarte.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.devKarte[i], this.devKarte[j]] = [this.devKarte[j], this.devKarte[i]];
+        }
+        this.devIndex = 0;
+        this.devKarte.forEach(k => k.izvucena = false);
+    }
+    draw(onPoljeClick, overlayLines) {
+        let elements = []
+        elements =  this.mapa.draw(this.igraci, overlayLines, (polje) => {
+            // klik na polje
+            if (polje) onPoljeClick(polje);
         });
-      }
-    update(){
+       
+        return elements
+    }
+    drawKarte(){
+        let elements = []
+        for(let i =0; i<this.trenutniIgrac().devKarte.length;i++){
+            let trDevKar = this.trenutniIgrac().devKarte[i]
+            console.log(trDevKar)
+            elements.push(
+            <ImageComponent
+                key={`devKarta-${this.id}`}
+                x={trDevKar.x}
+                y={trDevKar.y}
+                src = {trDevKar.src}
+                width={125}
+                height={150}
+                />)
+        }
+        return elements
+    }
+
+    update() {
         return this.draw(this.igraci);
     }
 }

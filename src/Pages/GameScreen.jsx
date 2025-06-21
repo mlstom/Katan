@@ -4,6 +4,7 @@ import { Stage, Layer, Rect, Text, Line } from 'react-konva'
 import '../Game.css'
 import { Igrac } from '../classes/Igrac';
 import { Game } from '../classes/Game';
+import { DevKarta } from '../classes/DevKarta';
 
 const GameScreen = () => {
     const layerRef = useRef(null);
@@ -41,6 +42,16 @@ const GameScreen = () => {
 
         g.dodajIgraca(new Igrac('milos', { r: 255, b: 0, g: 0 }));
         g.dodajIgraca(new Igrac('jovan', { r: 0, b: 255, g: 0 }));
+        let vrsta = 'vitez';
+        for (let i = 0; i < 25; i++) {
+            if (i == 14) vrsta = 'vpoen'
+            if (i == 19) vrsta = 'monopol'
+            if (i == 21) vrsta = 'putevi'
+            if (i == 23) vrsta = 'resurs'
+            g.dodajDevKartu(new DevKarta(i, `src/assets/${vrsta}karta.png`,vrsta, 0, 0))
+        }
+
+
         return g;
     }, []);
 
@@ -49,41 +60,41 @@ const GameScreen = () => {
 
     const handlePoljeClick = (polje) => {
         const igrac = game.trenutniIgrac();
-      
+
         switch (mode) {
-          case 'kucica':
-            // Postavljaš kućicu samo na prazno polje
-            if (polje.kuca == 0) {
-              polje.kuca    = 1;
-              polje.vlasnik = igrac;
-              // ako želiš da vodiš evidenciju u klasi Igrac:
-              igrac.kucice.push(polje);
-            }
-            break;
-      
-          case 'grad':
-            // Nadograđuješ samo kućicu koja pripada trenutnom igraču
-            console.log(polje.id)
-            if (polje.kuca == 1 && polje.vlasnik == igrac) {
-              polje.kuca    = 2;
-              // vođenje liste gradova
-              igrac.gradovi = igrac.gradovi || [];
-              igrac.gradovi.push(polje);
-              // (po želji) ukloniš polje iz igrac.kucice:
-              igrac.kucice = igrac.kucice.filter(p => p.id !== polje.id);
-            }
-            break;
-      
-          default:
-            // normal klik, ništa posebno
-            break;
+            case 'kucica':
+                // Postavljaš kućicu samo na prazno polje
+                if (polje.kuca == 0) {
+                    polje.kuca = 1;
+                    polje.vlasnik = igrac;
+                    // ako želiš da vodiš evidenciju u klasi Igrac:
+                    igrac.kucice.push(polje);
+                }
+                break;
+
+            case 'grad':
+                // Nadograđuješ samo kućicu koja pripada trenutnom igraču
+                console.log(polje.id)
+                if (polje.kuca == 1 && polje.vlasnik == igrac) {
+                    polje.kuca = 2;
+                    // vođenje liste gradova
+                    igrac.gradovi = igrac.gradovi || [];
+                    igrac.gradovi.push(polje);
+                    // (po želji) ukloniš polje iz igrac.kucice:
+                    igrac.kucice = igrac.kucice.filter(p => p.id !== polje.id);
+                }
+                break;
+
+            default:
+                // normal klik, ništa posebno
+                break;
         }
-      
+
         // posle svakog klika vraćamo mod na normal i rerenderujemo
         setMode('normal');
         refresh();
-      };
-      
+    };
+
 
 
     const [mode, setMode] = useState('normal');
@@ -198,48 +209,65 @@ const GameScreen = () => {
         })
         : null;
 
+    const izvuciKartuRazvoja = () => {
+        if (game.devIndex >= game.devKarte.length) {
+            return null; // nema više karata
+        }
+        const karta = game.devKarte[game.devIndex++];
+        karta.izvucena = true;
+        game.trenutniIgrac().devKarte.push(karta)
+        refresh()
+    }
+
+
 
     return (
 
         <div className="canvas-container" >
-            <div style={{display:'flex', justifyContent:'center',alignItems:'center'}} >
-            <Stage width={500} height={500} onWheel={handleWheel} className='more'>
-                <Layer>
-                    <Rect width={500} height={500} fill="#5b6ee1" draggable={false} />
-                </Layer>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+                <Stage width={500} height={500} onWheel={handleWheel} className='more'>
+                    <Layer>
+                        <Rect width={500} height={500} fill="#5b6ee1" draggable={false} />
+                    </Layer>
 
-                <Layer ref={layerRef} draggable x={100} y={60}>
+                    <Layer ref={layerRef} draggable x={100} y={60}>
 
-                    {game.draw(handlePoljeClick, overlayLines)}
+                        {game.draw(handlePoljeClick, overlayLines)}
 
-                </Layer>
-            </Stage>
-            <div className="controls">
-                <p>Trenutni mod: {mode}</p>
-                <button onClick={() => { setMode('put'); }}>
-                    Postavi put
-                </button>
-                <button onClick={() => { setMode('kucica'); }}>
-                    Postavi kucicu
-                </button>
-                <button onClick={() => { setMode('grad'); }}>
-                    Postavi grad
-                </button>
-                <button onClick={() => { setMode('normal'); }}>
-                    Vrati na normal
-                </button>
-                <button onClick={() => { game.zavrsiPotez(); refresh(); }}>
-                    Završi potez (trenutni: {game.trenutniIgrac().id})
-                </button>
-            </div>
+                    </Layer>
+                </Stage>
+                <div className="controls">
+                    <p>Trenutni mod: {mode}</p>
+                    <button onClick={() => { setMode('put'); }}>
+                        Postavi put
+                    </button>
+                    <button onClick={() => { setMode('kucica'); }}>
+                        Postavi kucicu
+                    </button>
+                    <button onClick={() => { setMode('grad'); }}>
+                        Postavi grad
+                    </button>
+                    <button onClick={() => { setMode('normal'); }}>
+                        Vrati na normal
+                    </button>
+                    <button onClick={() => { izvuciKartuRazvoja() }}>
+                        Dodaj dev kartu trenutnom igracu, trenutni broj dev karata: {game.brojDevKarataKojiNisuIzvucene()}
+                    </button>
+                    <button onClick={() => { game.zavrsiPotez(); refresh(); }}>
+                        Završi potez (trenutni: {game.trenutniIgrac().id})
+                    </button>
+                </div>
             </div>
             <Stage width={1000} height={150} onWheel={handleWheel} className='border'>
                 <Layer>
                     <Rect width={1000} height={150} fill="#A86523" draggable={false} />
                 </Layer>
+                <Layer>
+                    {game.drawKarte()}
+                </Layer>
             </Stage>
 
-            
+
         </div>
     )
 }

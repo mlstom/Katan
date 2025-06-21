@@ -23,7 +23,7 @@ function ImageComponent({ src, x, y, width, height, red, green, blue,onClickKuca
 
 
   return (
-    <Group listening={true} onClick={()=>onClickKuca()}>
+    <Group listening={true} onClick={()=>onClickKuca?onClickKuca():null}>
       <Image
         ref={imgRef}
         image={image}
