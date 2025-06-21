@@ -22,7 +22,7 @@ export class Polje {
   }
 
   render(onClick) {
-    console.log(this.id)
+    
     return (
       <Circle
         key={this.id}

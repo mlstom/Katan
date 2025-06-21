@@ -157,7 +157,7 @@ export class Mapa {
         this.nizPortova = nizPortova
     }
 
-    draw(igraci,overlayLines, onPoljeClick) {
+    draw(igraci, overlayLines, onPoljeClick) {
 
         const tiles = this.nizTiles.map(tile => tile.render())
         const portovi = this.nizPortova.map(port => port.render())
@@ -171,35 +171,51 @@ export class Mapa {
         );
 
         // Crtanje kuća svih igrača
-        const kuce = igraci.flatMap(igrac =>
-            igrac.kucice.map((polje, i) => (
-                <Rect
-                    key={`kuca-${igrac.id}-${i}`}
-                    x={polje.x - 6}
-                    y={polje.y - 6}
-                    width={12}
-                    height={12}
-                    fill={igrac.boja}
+        const colorMap = {
+            red: { r: 255, g: 0, b: 0 },
+            blue: { r: 0, g: 0, b: 255 },
+        }
+
+
+        
+
+        const kuce = igraci.flatMap(igrac => 
+            igrac.kucice.map((polje, i) => {
+                
+             
+              return (
+                <ImageComponent
+                  src={`src/assets/kuca.png`}
+                  key={`kuca-${igrac.id}-${i}`}
+                  x={polje.x}
+                  y={polje.y - 1}
+                  width={23}
+                  height={15}
+                  red={igrac.boja.r}
+                  green={igrac.boja.g}
+                  blue={igrac.boja.b}
                 />
-            ))
-        );
+              );
+            })
+          );
+          
 
         return [
             <ImageComponent
-              src={`src/assets/tlo5.png`}
-              x={150}
-              y={180}
-              width={300}
-              height={260}
-              key={'src/assets/tlo5.png'}
+                src={`src/assets/tlo5.png`}
+                x={150}
+                y={180}
+                width={300}
+                height={260}
+                key={'src/assets/tlo5.png'}
             />,
             ...tiles,
-            
+
             ...portovi,
             overlayLines,
             ...putevi,
             ...polja,
             ...kuce
-          ];
+        ];
     }
 }
