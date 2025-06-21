@@ -19,8 +19,10 @@ export class Game {
         return this.igraci[this.aktivniIgrac];
     }
     postaviKucicu(polje) {
+        polje.vlasnik = this.trenutniIgrac();
+        polje.kuca = 1;
         this.trenutniIgrac().dodajKucicu(polje);
-      }
+    }
     
     zavrsiPotez() {
         this.aktivniIgrac = (this.aktivniIgrac + 1) % this.igraci.length;
@@ -37,7 +39,6 @@ export class Game {
         return this.mapa.draw(this.igraci,overlayLines,(polje) => {
           // klik na polje
           if (polje) onPoljeClick(polje);
-          this.izaberiPolje(polje);
         });
       }
     update(){

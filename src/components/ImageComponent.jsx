@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { Group, Image } from "react-konva";
 import useImage from "use-image";
 
-function ImageComponent({ src, x, y, width, height, red, green, blue }) {
+function ImageComponent({ src, x, y, width, height, red, green, blue,onClickKuca }) {
   const [image] = useImage(src);
   const imgRef = useRef()
   const shouldColorize = red != null && green != null && blue != null;
@@ -23,7 +23,7 @@ function ImageComponent({ src, x, y, width, height, red, green, blue }) {
 
 
   return (
-    <Group>
+    <Group listening={true} onClick={()=>onClickKuca()}>
       <Image
         ref={imgRef}
         image={image}

@@ -99,7 +99,7 @@ export class Mapa {
                         ox = 100
                         oy = 290
                     }
-                    let polje = new Polje(`${i}`, ox + x * 50, oy, 0, 0, null, "putevi")
+                    let polje = new Polje(`${i}`, ox + x * 50, oy, null, 0, null, "putevi")
 
                     x++
                     nizPolja.push(polje)
@@ -170,35 +170,10 @@ export class Mapa {
             ))
         );
 
-        // Crtanje kuća svih igrača
-        const colorMap = {
-            red: { r: 255, g: 0, b: 0 },
-            blue: { r: 0, g: 0, b: 255 },
-        }
-
-
         
-
-        const kuce = igraci.flatMap(igrac => 
-            igrac.kucice.map((polje, i) => {
-                
+       
+        
              
-              return (
-                <ImageComponent
-                  src={`src/assets/kuca.png`}
-                  key={`kuca-${igrac.id}-${i}`}
-                  x={polje.x}
-                  y={polje.y - 1}
-                  width={23}
-                  height={15}
-                  red={igrac.boja.r}
-                  green={igrac.boja.g}
-                  blue={igrac.boja.b}
-                />
-              );
-            })
-          );
-          
 
         return [
             <ImageComponent
@@ -210,12 +185,10 @@ export class Mapa {
                 key={'src/assets/tlo5.png'}
             />,
             ...tiles,
-
             ...portovi,
             overlayLines,
             ...putevi,
             ...polja,
-            ...kuce
         ];
     }
 }
