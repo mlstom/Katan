@@ -202,18 +202,18 @@ const GameScreen = () => {
     return (
 
         <div className="canvas-container" >
-            <Stage width={600} height={600} onWheel={handleWheel} className='more'>
+            <div style={{display:'flex', justifyContent:'center',alignItems:'center'}} >
+            <Stage width={500} height={500} onWheel={handleWheel} className='more'>
                 <Layer>
-                    <Rect width={600} height={600} fill="#5b6ee1" draggable={false} />
+                    <Rect width={500} height={500} fill="#5b6ee1" draggable={false} />
                 </Layer>
 
-                <Layer ref={layerRef} draggable x={160} y={100}>
+                <Layer ref={layerRef} draggable x={100} y={60}>
 
                     {game.draw(handlePoljeClick, overlayLines)}
 
                 </Layer>
             </Stage>
-
             <div className="controls">
                 <p>Trenutni mod: {mode}</p>
                 <button onClick={() => { setMode('put'); }}>
@@ -232,6 +232,14 @@ const GameScreen = () => {
                     Završi potez (trenutni: {game.trenutniIgrac().id})
                 </button>
             </div>
+            </div>
+            <Stage width={1000} height={150} onWheel={handleWheel} className='border'>
+                <Layer>
+                    <Rect width={1000} height={150} fill="#A86523" draggable={false} />
+                </Layer>
+            </Stage>
+
+            
         </div>
     )
 }
