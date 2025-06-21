@@ -43,8 +43,8 @@ export class Polje {
       key={`kuca-${this.id}`}
       x={this.x}
       y={this.y - 1}
-      width={23}
-      height={15}
+      width={18}
+      height={10}
       red={this.vlasnik.boja.r}
       green={this.vlasnik.boja.g}
       blue={this.vlasnik.boja.b}
@@ -56,7 +56,7 @@ export class Polje {
       src={`src/assets/grad.png`}
       key={`grad-${this.id}`}
       x={this.x}
-      y={this.y - 1}
+      y={this.y-2}
       width={23}
       height={15}
       red={this.vlasnik.boja.r}
