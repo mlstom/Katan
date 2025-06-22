@@ -8,6 +8,7 @@ import { DevKarta } from '../classes/DevKarta';
 
 const GameScreen = () => {
     const layerRef = useRef(null);
+    const layerRef2 = useRef(null)
 
     const handleWheel = (e) => {
         e.evt.preventDefault();
@@ -35,6 +36,17 @@ const GameScreen = () => {
         layer.position(newPos);
         layer.batchDraw();
     };
+    const handleWheel1 = (e) => {
+        e.evt.preventDefault();
+
+        const layer = layerRef2.current;
+     
+        const newX = layer.x() - e.evt.deltaY;
+
+        layer.x(newX);
+        layer.batchDraw();
+
+    };
 
 
     const game = useMemo(() => {
@@ -48,7 +60,7 @@ const GameScreen = () => {
             if (i == 19) vrsta = 'monopol'
             if (i == 21) vrsta = 'putevi'
             if (i == 23) vrsta = 'resurs'
-            g.dodajDevKartu(new DevKarta(i, `src/assets/${vrsta}karta.png`,vrsta, 0, 0))
+            g.dodajDevKartu(new DevKarta(i, `src/assets/${vrsta}karta.png`, vrsta, 0, 0))
         }
 
         g.sfuleDevKarte()
@@ -258,11 +270,11 @@ const GameScreen = () => {
                     </button>
                 </div>
             </div>
-            <Stage width={1000} height={150} onWheel={handleWheel} className='border'>
-                <Layer>
+            <Stage width={1000} height={150} onWheel={handleWheel1} className='border'>
+                <Layer >
                     <Rect width={1000} height={150} fill="#A86523" draggable={false} />
                 </Layer>
-                <Layer>
+                <Layer ref={layerRef2}>
                     {game.drawKarte()}
                 </Layer>
             </Stage>

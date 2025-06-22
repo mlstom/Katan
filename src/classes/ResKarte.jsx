@@ -1,5 +1,5 @@
 import ImageComponent from '../components/ImageComponent';
-export class DevKarta {
+export class ResKarta {
     constructor(id, src, naziv, x, y) {
         this.x = x;
         this.y = y;
@@ -10,7 +10,7 @@ export class DevKarta {
     }
     render(ox,oy) {
         return <ImageComponent
-            key={`devKarta-${this.id}`}
+            key={`reskarte-${this.id}`}
             x={this.x + ox}
             y={this.y + oy}
             src={this.src}

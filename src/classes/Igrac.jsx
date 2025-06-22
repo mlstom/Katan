@@ -6,6 +6,7 @@ export class Igrac{
         this.kucice = [];
         this.gradovi=[] 
         this.devKarte=[]
+        this.resKarte = []
       }
     
       dodajPut(polje1, polje2) {
