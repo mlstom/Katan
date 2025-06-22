@@ -13,6 +13,9 @@ export class Game {
         this.devIndex = 0
    
     }
+    
+
+
     izaberiPolje(polje) {
         this.izabranoPolje = polje;
     }

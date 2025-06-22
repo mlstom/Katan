@@ -5,7 +5,7 @@ import '../Game.css'
 import { Igrac } from '../classes/Igrac';
 import { Game } from '../classes/Game';
 import { DevKarta } from '../classes/DevKarta';
-
+import  DiceRoller from '../components/DiceRoller';
 const GameScreen = () => {
     const layerRef = useRef(null);
     const layerRef2 = useRef(null)
@@ -170,6 +170,11 @@ const GameScreen = () => {
         [50, 53]
     ];
 
+     const handleDiceResult = (dice1, dice2) => {
+    console.log(`You rolled ${dice1} and ${dice2}`);
+    // You can also set this in state and show it in UI
+  };
+
     const freeEdges = () => {
         const zauzeteVeze = [];
 
@@ -248,6 +253,7 @@ const GameScreen = () => {
 
                     </Layer>
                 </Stage>
+                <DiceRoller onRoll={handleDiceResult}/>
                 <div className="controls">
                     <p>Trenutni mod: {mode}</p>
                     <button onClick={() => { setMode('put'); }}>
