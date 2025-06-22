@@ -2,8 +2,6 @@ import { Polje } from './Polje';
 import { Tile } from './Tile'
 import { Port } from './Port';
 import ImageComponent from '../components/ImageComponent';
-import { Rect } from 'react-konva';
-import { useState } from 'react';
 import { Put } from './Put';
 
 export class Mapa {

@@ -1,6 +1,4 @@
 import { Mapa } from './Mapa';
-import { Igrac } from './Igrac';
-import ImageComponent from '../components/ImageComponent';
 
 export class Game {
     constructor() {
@@ -11,10 +9,19 @@ export class Game {
         this.izabranoPolje2 = null;
         this.devKarte = []
         this.devIndex = 0
-   
+        this.loggedIgracIndex = null
+        this.nizZito = []
+        this.nizDrvo = []
+        this.nizCigla = []
+        this.nizKamen = []
+        this.nizOvca = []
     }
     
-
+    findLoggedIgracIndex (id){
+        for(let i =0; i<this.igraci.length;i++){
+            if(this.igraci[i].id == id) this.loggedIgracIndex=i;
+        }
+    }
 
     izaberiPolje(polje) {
         this.izabranoPolje = polje;
@@ -67,8 +74,8 @@ export class Game {
         let elements = []
         let ox=60,oy=75
         
-        for(let i =0; i<this.trenutniIgrac().devKarte.length;i++){
-            let trDevKar = this.trenutniIgrac().devKarte[i]
+        for(let i =0; i<this.igraci[this.loggedIgracIndex].devKarte.length;i++){
+            let trDevKar = this.igraci[this.loggedIgracIndex].devKarte[i]
             elements.push(
                 trDevKar.render(ox,oy)
             )

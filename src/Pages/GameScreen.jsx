@@ -6,6 +6,7 @@ import { Igrac } from '../classes/Igrac';
 import { Game } from '../classes/Game';
 import { DevKarta } from '../classes/DevKarta';
 import  DiceRoller from '../components/DiceRoller';
+import { ResKarta } from '../classes/ResKarte';
 const GameScreen = () => {
     const layerRef = useRef(null);
     const layerRef2 = useRef(null)
@@ -53,6 +54,8 @@ const GameScreen = () => {
         const g = new Game();
 
         g.dodajIgraca(new Igrac('milos', { r: 255, b: 0, g: 0 }));
+        g.findLoggedIgracIndex('milos')
+        console.log(g.loggedIgracIndex)
         g.dodajIgraca(new Igrac('jovan', { r: 0, b: 255, g: 0 }));
         let vrsta = 'vitez';
         for (let i = 0; i < 25; i++) {
@@ -64,6 +67,13 @@ const GameScreen = () => {
         }
 
         g.sfuleDevKarte()
+        for(let i = 0;i<19;i++){
+            g.nizCigla.push(new ResKarta(`cigla-${i}`,'scr/assets/ciglakarta.png',0,0))
+            g.nizDrvo.push(new ResKarta(`drvo-${i}`,'scr/assets/drvokarta.png',0,0))
+            g.nizOvca.push(new ResKarta(`ovca-${i}`,'scr/assets/ovcakarta.png',0,0))
+            g.nizKamen.push(new ResKarta(`kamen-${i}`,'scr/assets/kamenkarta.png',0,0))
+            g.nizZito.push(new ResKarta(`zito-${i}`,'scr/assets/zitokarta.png',0,0))
+        }
         return g;
     }, []);
 
@@ -111,10 +121,7 @@ const GameScreen = () => {
 
     const [mode, setMode] = useState('normal');
 
-    const handleZavrsi = () => {
-        game.zavrsiPotez();
-        forceUpdate(u => u + 1);
-    };
+  
 
     const veze = [
         [0, 3], [0, 4],
@@ -169,10 +176,16 @@ const GameScreen = () => {
         [49, 52], [49, 53],
         [50, 53]
     ];
+    
 
      const handleDiceResult = (dice1, dice2) => {
-    console.log(`You rolled ${dice1} and ${dice2}`);
-    // You can also set this in state and show it in UI
+        console.log(`You rolled ${dice1} and ${dice2}`);
+        for(let i= 0;i<19;i++){
+            if(game.mapa.nizTiles[i].number == (dice1+dice2) ){
+                game.mapa.nizTiles[i].highlight =true;
+                console.log(game.mapa.nizTiles[i])
+            } 
+        }
   };
 
     const freeEdges = () => {
@@ -230,9 +243,12 @@ const GameScreen = () => {
         if (game.devIndex >= game.devKarte.length) {
             return null; // nema više karata
         }
+        if(game.trenutniIgrac() != game.igraci[game.loggedIgracIndex]){
+            return null
+        }
         const karta = game.devKarte[game.devIndex++];
         karta.izvucena = true;
-        game.trenutniIgrac().devKarte.push(karta)
+        game.igraci[game.loggedIgracIndex].devKarte.push(karta)
         refresh()
     }
 
