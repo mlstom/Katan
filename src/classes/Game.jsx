@@ -61,18 +61,20 @@ export class Game {
     }
     drawKarte(){
         let elements = []
+        let ox=60,oy=75
         for(let i =0; i<this.trenutniIgrac().devKarte.length;i++){
             let trDevKar = this.trenutniIgrac().devKarte[i]
             console.log(trDevKar)
             elements.push(
             <ImageComponent
-                key={`devKarta-${this.id}`}
-                x={trDevKar.x}
-                y={trDevKar.y}
+                key={`devKarta-${i}`}
+                x={trDevKar.x+ox}
+                y={trDevKar.y+oy}
                 src = {trDevKar.src}
                 width={125}
-                height={150}
+                height={140}
                 />)
+                ox= ox+125
         }
         return elements
     }

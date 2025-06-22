@@ -51,7 +51,7 @@ const GameScreen = () => {
             g.dodajDevKartu(new DevKarta(i, `src/assets/${vrsta}karta.png`,vrsta, 0, 0))
         }
 
-
+        g.sfuleDevKarte()
         return g;
     }, []);
 
